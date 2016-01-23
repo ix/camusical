@@ -10,6 +10,6 @@ Unstable, unfinished. Works but not very good yet.
 
 # Roadmap
 - [X] Write proof of concept visualization.
-- [] Create a config file allowing customization of unicode character and color(s).
-- [] Multiple visualizations customizable by command line flag.
-- [] Find a way to fix the occasional blocking issue from the FIFO.
+- [ ] Create a config file allowing customization of unicode character and color(s).
+- [ ] Multiple visualizations customizable by command line flag.
+- [ ] Find a way to fix the occasional blocking issue from the FIFO.
