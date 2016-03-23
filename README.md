@@ -1,8 +1,8 @@
 # camusical
 MPD visualizer in OCaml using Termbox.
-Unstable, unfinished. Works but not very good yet.
+Unfinished, but usually works.
 
-![camusical with green foreground](/img/camusical.png)
+![camusical gif with green foreground](/img/camusical.gif)
 
 # Dependencies
 - core
@@ -12,4 +12,4 @@ Unstable, unfinished. Works but not very good yet.
 - [X] Write proof of concept visualization.
 - [ ] Create a config file allowing customization of unicode character and color(s).
 - [ ] Multiple visualizations customizable by command line flag.
-- [ ] Find a way to fix the occasional blocking issue from the FIFO.
+- [X] Find a way to fix the occasional blocking issue from the FIFO.
