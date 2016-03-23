@@ -1,25 +1,19 @@
 open Core.Std
 
-(* Define a range operator.
-   Call `f' `n' times and return
-   a list of the results. *)
-let times f n =
-  let (--) = List.range in
-    List.map ~f:f (0 -- n)
-
-(* Read n bytes from the fifo input channel and
+(* Read n bytes from the fifo descriptor and
    check if any readings failed (None). If so, return None
    otherwise return all read bytes wrapped in Some. *)
-let read_n_bytes fifo n =
-  let results = times (fun _ -> In_channel.input_byte fifo) n in
-    if List.exists results ((=) None)
-    then None
-    else Some (List.map ~f:(Option.value ~default: 0) results)
+let read_n_bytes fifo size =
+  let buf = String.create size in
+  match Unix.read fifo ~buf:buf with
+  | exception Unix.Unix_error (_, _, _) -> None
+  | n -> Some (List.map ~f:int_of_char @@ String.to_list @@ String.sub ~len:n ~pos:0 buf)
 
-(* Open fifo input channel, call the given function, close the channel,
-   return the result. *)
-let call_with_fifo fn =
-  let fifo = In_channel.create "/tmp/mpd.fifo" ~binary:true in
+
+(* Open a FIFO as readonly and non-blocking, execute a function on the descriptor
+   and then safely close it again. *)
+let call_with_fifo filename fn =
+  let fifo = Unix.openfile ~mode:[Unix.O_RDONLY; Unix.O_NONBLOCK] filename in
     let result = fn fifo in
-      In_channel.close fifo ;
+      Unix.close fifo ;
       result

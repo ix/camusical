@@ -1,3 +1,3 @@
 val graph : int -> int -> unit
-val draw : in_channel -> int -> unit
-val visualize : in_channel -> unit
+val draw : Unix.file_descr -> int -> unit
+val visualize : Unix.file_descr -> unit

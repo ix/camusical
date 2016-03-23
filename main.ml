@@ -15,9 +15,9 @@ let draw fifo width =
 let rec visualize fifo = 
   match Termbox.peek_event 10 with
     | Some (Ascii 'q') -> ()
-    | _                -> Termbox.clear () ; draw fifo (Termbox.width ()) ; Termbox.present () ;  visualize fifo
+    | _ -> Termbox.clear () ; draw fifo (Termbox.width ()) ; Termbox.present () ;  visualize fifo
 
 let () =
   Termbox.init () |> ignore ;
-  Visualizer.call_with_fifo visualize ;
+  Visualizer.call_with_fifo "/tmp/mpd.fifo" visualize ;
   Termbox.shutdown ()
