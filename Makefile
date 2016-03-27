@@ -1,3 +1,15 @@
 all:
-	ocamlfind ocamlopt -package core -linkpkg -thread -I ocaml-termbox ocaml-termbox/termbox.cmxa visualizer.mli visualizer.ml main.mli main.ml -o main
-	rm {*.cmi,*.cmx,*.o}
+	mkdir -p visualizers
+	for i in `ls sources/*.ml` ; do \
+		filename=`basename -s .ml $$i` ; \
+		ocamlfind ocamlopt \
+			-linkpkg \
+			-thread \
+			-package core \
+			-I ocaml-termbox ocaml-termbox/termbox.cmxa \-I sources \
+			-I sources \
+      visualizer.mli visualizer.ml sources/$$filename.mli sources/$$filename.ml \
+			-o visualizers/$$filename ; \
+	done
+
+	rm *.cmi ; rm *.cmx ; rm *.o

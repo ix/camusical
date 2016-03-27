@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+if (($#)); then
+    case "$1" in
+        bars) exec visualizers/bars "$@";;
+        colorful) exec visualizers/colorful "$@";;
+        *) echo "unrecognised mode: $1!"
+    esac
+fi
